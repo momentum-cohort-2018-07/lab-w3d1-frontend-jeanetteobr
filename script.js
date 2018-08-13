@@ -18,19 +18,44 @@
 // a student name, and an assignment number, and returns the score for that
 // student and assignment.
 
-function assignmentScore (grades, studentName, assignmentNum) {
-
+function assignmentScore(grades, studentName, assignmentNum) {
+    return grades[studentName][assignmentNum]
 }
+
 
 // 2. Create a function called assignmentScores that takes a grades object
 // and an assignment number and returns all scores for that assignment.
+// map will be your friend here 
+// Object.keys() or Object.values() will work here
 
-function assignmentScores (grades, assignmentNum) {
+function assignmentScores(grades, assignmentNum) {
+    return column(Object.values(grades), assignmentNum)
+}
 
+// function column(grid, colNum) {
+//     let output = [];
+//     for (let arr of grid) {
+//         output.push(arr[colNum])
+//     }
+//     return output
+// }
+
+function column(grid, colNum) {
+    return grid.map(function (arr) {
+        return arr[colNum]
+    })
 }
 
 // 3. Create a function called assignmentAverageScore that takes a grades
 // object and an assignment number and returns the average score for that assignment.
+
+function assignmentAverageScore (grades, assignmentNum){
+ let total = assignmentScores.reduce(function (total, current) {
+     if (current < total) {return current}
+    return total
+ })
+ return total
+}
 
 // 4. Create a function called studentAverages that takes a grades object
 // and returns a new object of students and their average score, like this:
