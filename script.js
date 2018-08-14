@@ -185,4 +185,13 @@ function topStudents (grades, numStudents){
 }
 
 // 9. Create a function called passingStudents that takes a grades object
-// and returns an array of all the students with a D or better average.
+// and returns an array of all the students with a D or better average.'
+
+function passingStudents (grades){
+    let finalGrades = finalLetterGrades(grades);
+    let students = Object.keys(finalGrades)
+
+    return students.filter(function (student){
+    return finalGrades[student] !== 'F'
+    })
+}
