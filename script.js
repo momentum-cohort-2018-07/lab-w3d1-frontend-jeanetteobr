@@ -41,6 +41,15 @@ function assignmentScores(grades, assignmentNum) {
 //     return output
 // }
 
+// function column (grid, colNum) {
+//     let output = [];
+//     grid.forEach(function (row) {
+//         output.push(row[colNum])
+//     })
+//     return output
+// }
+// above function uses a forEach loop
+
 function column(grid, colNum) {
     return grid.map(function (row) {
         return row[colNum]
