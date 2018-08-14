@@ -29,6 +29,8 @@ function assignmentScore(grades, studentName, assignmentNum) {
 // Object.keys() or Object.values() will work here
 
 function assignmentScores(grades, assignmentNum) {
+    //let scores = Object.values(grades)
+    //return column(scores, assignmentNum)
     return column(Object.values(grades), assignmentNum)
 }
 
@@ -66,6 +68,19 @@ function assignmentAverageScore (grades, assignmentNum){
     }, 0);
     return average
 } 
+
+// //function average(nums){
+//     ket sum = 0; 
+//     nums.forEach(function (num) 
+//         sum += num
+// })
+// return sum / nums.length
+// //}
+
+//function assignmentAverageScore(grades, assignmentNum){
+//  let scores = assignmentScores(grades, assignmentNum);
+//return average(scores)
+//}
 
 // 4. Create a function called studentAverages that takes a grades object
 // and returns a new object of students and their average score, like this:
