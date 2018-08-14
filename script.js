@@ -134,6 +134,19 @@ function letterGrade (score) {
 // and returns a new object of students and their final letter grade, as
 // determined by their average.
 
+function finalLetterGrades (grades) {
+    let averages = studentAverages(grades);
+    // averages looks like {indiana: 90, nevada: 80, indigo: 83, ....}
+    let students = Object.keys(averages);
+    // loop through the students
+    students.forEach(function (student){
+         // replace the average with the letter grade
+         averages[student] = letterGrade(averages[student]);
+    })   
+    //return averages
+    return averages
+}
+
 // 7. Create a function called classAverage that takes a grades object and
 // returns the average for the entire class.
 
