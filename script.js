@@ -61,33 +61,49 @@ function column(grid, colNum) {
 // 3. Create a function called assignmentAverageScore that takes a grades
 // object and an assignment number and returns the average score for that assignment.
 
-function assignmentAverageScore (grades, assignmentNum){
-   let scores = assignmentScores(grades, assignmentNum);
+function assignmentAverageScore(grades, assignmentNum) {
+    let scores = assignmentScores(grades, assignmentNum);
     let average = scores.reduce(function (total, current, index, array) {
-        return total + current /array.length
+        return total + current / array.length
     }, 0);
     return average
-} 
+}
 
-// //function average(nums){
-//     ket sum = 0; 
-//     nums.forEach(function (num) 
+// function average(nums){
+//     let sum = 0; 
+//     nums.forEach(function (num) {
 //         sum += num
 // })
 // return sum / nums.length
-// //}
+// }
 
-//function assignmentAverageScore(grades, assignmentNum){
-//  let scores = assignmentScores(grades, assignmentNum);
-//return average(scores)
-//}
+// function assignmentAverageScore(grades, assignmentNum) {
+//     let scores = assignmentScores(grades, assignmentNum);
+//     return average(scores)
+// }
+
 
 // 4. Create a function called studentAverages that takes a grades object
 // and returns a new object of students and their average score, like this:
 // { indiana: 90, nevada: 80, indigo: 83, ... }
 
-function studentAverages (grades){
-  
+function studentAverages(grades) {
+    let averages = {};
+    // get a list of students
+    let students = Object.keys(grades);
+    // for each student
+    students.forEach(function (student){
+        // look up their scores from the gradebook
+        let scores = grades[student];
+        // average
+        let averageScore = scores.reduce(function (total, current, index, array) {
+            return total + current / array.length
+        }, 0);
+        // put that in a new object
+        averages[student] = averageScore;
+    })
+    // return new object
+    return averages
 }
 
 // 5. Create a function called letterGrade that returns a letter grade for a
@@ -98,6 +114,21 @@ function studentAverages (grades){
 // 70-80 => C
 // 60-70 => D
 // < 60 => F
+
+function letterGrade (score) {
+    if (score >= 90) {
+        return 'A'
+    } else if (score >= 80) {
+        return 'B'
+    } else if (score >= 70){
+        return 'C'
+    } else if (score >= 60) {
+        return 'D'
+    } else {
+        return 'F'
+    }
+    
+}
 
 // 6. Create a function called finalLetterGrades that takes a grades object
 // and returns a new object of students and their final letter grade, as
