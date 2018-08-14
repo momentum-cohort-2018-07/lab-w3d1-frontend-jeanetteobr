@@ -50,12 +50,12 @@ function column(grid, colNum) {
 // object and an assignment number and returns the average score for that assignment.
 
 function assignmentAverageScore (grades, assignmentNum){
- let total = assignmentScores.reduce(function (total, current) {
-     if (current < total) {return current}
-    return total
- })
- return total
-}
+   let scores = assignmentScores(grades, assignmentNum);
+    let average = scores.reduce(function (total, current, index, array) {
+        return total + current /array.length
+    }, 0);
+    return average
+} 
 
 // 4. Create a function called studentAverages that takes a grades object
 // and returns a new object of students and their average score, like this:
