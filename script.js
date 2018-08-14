@@ -136,23 +136,53 @@ function letterGrade (score) {
 
 function finalLetterGrades (grades) {
     let averages = studentAverages(grades);
+    let finalGrades = {}; // declaring a variable 'finalGrades' and assigning to empty object
     // averages looks like {indiana: 90, nevada: 80, indigo: 83, ....}
-    let students = Object.keys(averages);
+    let students = Object.keys(averages); // declarinbg 'students' variable and defining as array of object keys from the array defined on line 138
     // loop through the students
     students.forEach(function (student){
          // replace the average with the letter grade
-         averages[student] = letterGrade(averages[student]);
+         finalGrades[student] = letterGrade(averages[student]);
     })   
     //return averages
-    return averages
+    return finalGrades
 }
 
 // 7. Create a function called classAverage that takes a grades object and
 // returns the average for the entire class.
 
+function average(nums){
+    let sum = 0; 
+    nums.forEach(function (num) {
+        sum += num
+})
+return sum / nums.length
+}
+
+function classAverage (grades) {
+    let averages = Object.values(studentAverages(grades)); 
+    // line above declares 'averages' variable and assigns values of the studentAverages function as an object
+    return average(averages) // return the average
+}
+
 // 8. Create a function called topStudents that takes a grades object and a
 // number of students and returns an array of the names of the top N students,
 // where N is the number of students you gave to the function.
+
+function topStudents (grades, numStudents){
+    let averages = studentAverages(grades);
+    // averages looks like {indiana: 90, nevada: 80, indigo: 83, ...}
+    // get array of student names
+    let students = Object.keys(averages)
+    // sort student name by average
+    students.sort(function (studentA, studentB){ 
+        return averages[studentB] - averages[studentA] 
+        //line above will return  tops students in descending order ; averages[studentA] - averages[studentB] returns students in ascending order
+    })
+    // take only the first numStudents of student names
+    // return only those student names
+    return students.slice(0, numStudents)
+}
 
 // 9. Create a function called passingStudents that takes a grades object
 // and returns an array of all the students with a D or better average.
