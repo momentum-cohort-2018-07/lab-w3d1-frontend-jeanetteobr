@@ -34,15 +34,16 @@ function assignmentScores(grades, assignmentNum) {
 
 // function column(grid, colNum) {
 //     let output = [];
-//     for (let arr of grid) {
-//         output.push(arr[colNum])
+//     for (let row of grid) {
+// line above will go through each array - for each entry it will be assigned to row
+//         output.push(row[colNum])
 //     }
 //     return output
 // }
 
 function column(grid, colNum) {
-    return grid.map(function (arr) {
-        return arr[colNum]
+    return grid.map(function (row) {
+        return row[colNum]
     })
 }
 
@@ -60,6 +61,10 @@ function assignmentAverageScore (grades, assignmentNum){
 // 4. Create a function called studentAverages that takes a grades object
 // and returns a new object of students and their average score, like this:
 // { indiana: 90, nevada: 80, indigo: 83, ... }
+
+function studentAverages (grades){
+  
+}
 
 // 5. Create a function called letterGrade that returns a letter grade for a
 // numerical score. The second number is non-inclusive. For example, 90 is an 'A',
