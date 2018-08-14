@@ -18,23 +18,93 @@
 // a student name, and an assignment number, and returns the score for that
 // student and assignment.
 
-function assignmentScore (grades, studentName, assignmentNum) {
-
+function assignmentScore(grades, studentName, assignmentNum) {
+    return grades[studentName][assignmentNum]
 }
+
 
 // 2. Create a function called assignmentScores that takes a grades object
 // and an assignment number and returns all scores for that assignment.
+// map will be your friend here 
+// Object.keys() or Object.values() will work here
 
-function assignmentScores (grades, assignmentNum) {
+function assignmentScores(grades, assignmentNum) {
+    //let scores = Object.values(grades)
+    //return column(scores, assignmentNum)
+    return column(Object.values(grades), assignmentNum)
+}
 
+// function column(grid, colNum) {
+//     let output = [];
+//     for (let row of grid) {
+// line above will go through each array - for each entry it will be assigned to row
+//         output.push(row[colNum])
+//     }
+//     return output
+// }
+
+// function column (grid, colNum) {
+//     let output = [];
+//     grid.forEach(function (row) {
+//         output.push(row[colNum])
+//     })
+//     return output
+// }
+// above function uses a forEach loop
+
+function column(grid, colNum) {
+    return grid.map(function (row) {
+        return row[colNum]
+    })
 }
 
 // 3. Create a function called assignmentAverageScore that takes a grades
 // object and an assignment number and returns the average score for that assignment.
 
+function assignmentAverageScore(grades, assignmentNum) {
+    let scores = assignmentScores(grades, assignmentNum);
+    let average = scores.reduce(function (total, current, index, array) {
+        return total + current / array.length
+    }, 0);
+    return average
+}
+
+// function average(nums){
+//     let sum = 0; 
+//     nums.forEach(function (num) {
+//         sum += num
+// })
+// return sum / nums.length
+// }
+
+// function assignmentAverageScore(grades, assignmentNum) {
+//     let scores = assignmentScores(grades, assignmentNum);
+//     return average(scores)
+// }
+
+
 // 4. Create a function called studentAverages that takes a grades object
 // and returns a new object of students and their average score, like this:
 // { indiana: 90, nevada: 80, indigo: 83, ... }
+
+function studentAverages(grades) {
+    let averages = {};
+    // get a list of students
+    let students = Object.keys(grades);
+    // for each student
+    students.forEach(function (student){
+        // look up their scores from the gradebook
+        let scores = grades[student];
+        // average
+        let averageScore = scores.reduce(function (total, current, index, array) {
+            return total + current / array.length
+        }, 0);
+        // put that in a new object
+        averages[student] = averageScore;
+    })
+    // return new object
+    return averages
+}
 
 // 5. Create a function called letterGrade that returns a letter grade for a
 // numerical score. The second number is non-inclusive. For example, 90 is an 'A',
@@ -45,16 +115,83 @@ function assignmentScores (grades, assignmentNum) {
 // 60-70 => D
 // < 60 => F
 
+function letterGrade (score) {
+    if (score >= 90) {
+        return 'A'
+    } else if (score >= 80) {
+        return 'B'
+    } else if (score >= 70){
+        return 'C'
+    } else if (score >= 60) {
+        return 'D'
+    } else {
+        return 'F'
+    }
+    
+}
+
 // 6. Create a function called finalLetterGrades that takes a grades object
 // and returns a new object of students and their final letter grade, as
 // determined by their average.
 
+function finalLetterGrades (grades) {
+    let averages = studentAverages(grades);
+    let finalGrades = {}; // declaring a variable 'finalGrades' and assigning to empty object
+    // averages looks like {indiana: 90, nevada: 80, indigo: 83, ....}
+    let students = Object.keys(averages); // declarinbg 'students' variable and defining as array of object keys from the array defined on line 138
+    // loop through the students
+    students.forEach(function (student){
+         // replace the average with the letter grade
+         finalGrades[student] = letterGrade(averages[student]);
+    })   
+    //return averages
+    return finalGrades
+}
+
 // 7. Create a function called classAverage that takes a grades object and
 // returns the average for the entire class.
+
+function average(nums){
+    let sum = 0; 
+    nums.forEach(function (num) {
+        sum += num
+})
+return sum / nums.length
+}
+
+function classAverage (grades) {
+    let averages = Object.values(studentAverages(grades)); 
+    // line above declares 'averages' variable and assigns values of the studentAverages function as an object
+    return average(averages) // return the average
+}
 
 // 8. Create a function called topStudents that takes a grades object and a
 // number of students and returns an array of the names of the top N students,
 // where N is the number of students you gave to the function.
 
+function topStudents (grades, numStudents){
+    let averages = studentAverages(grades);
+    // averages looks like {indiana: 90, nevada: 80, indigo: 83, ...}
+    // get array of student names
+    let students = Object.keys(averages)
+    // sort student name by average
+    students.sort(function (studentA, studentB){ 
+        return averages[studentB] - averages[studentA] 
+        //line above will return  tops students in descending order ; averages[studentA] - averages[studentB] returns students in ascending order
+    })
+    // take only the first numStudents of student names
+    // return only those student names
+    return students.slice(0, numStudents)
+}
+
 // 9. Create a function called passingStudents that takes a grades object
-// and returns an array of all the students with a D or better average.
+// and returns an array of all the students with a D or better average.'
+
+function passingStudents (grades){
+    let finalGrades = finalLetterGrades(grades);
+    let students = Object.keys(finalGrades)
+
+    return students.filter(function (student){
+    return finalGrades[student] !== 'F'
+    })
+}
